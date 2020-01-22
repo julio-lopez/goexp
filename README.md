@@ -1,2 +1,3 @@
-# go-start
-Assorted starting points and experiments in Go
+# Go experiments start
+
+Assorted experiments and starting points for Go
