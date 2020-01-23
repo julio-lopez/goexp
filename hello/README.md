@@ -19,4 +19,4 @@ go build
 
 ## Notes
 
-Modules file create using `go mod init github.com/julio-lopez/go-exp/hello`
+Modules file created using `go mod init github.com/julio-lopez/go-exp/hello`
