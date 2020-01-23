@@ -1,4 +1,4 @@
-# Go experiments start
+# Go Experiments and Examples
 
 Collection of assorted experiments and _starting points_ for Go.
 
