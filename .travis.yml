@@ -19,3 +19,8 @@ git:
   depth: 10
 env:
 - GO111MODULE=on
+deploy:
+  provider: script
+  script: scripts/docker-push-hello.sh
+  on:
+    branch: master
