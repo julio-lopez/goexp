@@ -11,7 +11,9 @@ branches:
   only:
   - master
 # install: go mod download
-script: bash scripts/build-hello.sh
+script:
+- scripts/build-hello.sh
+- scripts/docker-build-hello.sh
 git:
   quiet: true
   depth: 10
