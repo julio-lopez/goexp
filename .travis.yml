@@ -9,7 +9,7 @@ branches:
   only:
   - master
 # install: go mod download
-script: go build -o hello/hello ./hello/
+script: bash scripts/build-hello.sh
 git:
   quiet: true
   depth: 10
