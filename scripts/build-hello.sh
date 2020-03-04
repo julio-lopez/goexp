@@ -8,4 +8,5 @@ set -o xtrace
 echo "\$0: '${0}'"
 echo "PWD='${PWD}'"
 pwd
-go build -o hello/hello ./hello/
+cd hello
+go build
