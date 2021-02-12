@@ -1,7 +1,6 @@
 FROM golang:1.16rc1
 
-RUN addgroup users && \
-  adduser --home /user --ingroup users --disabled-password --gecos "User" user
+RUN adduser --home /user --ingroup users --disabled-password --gecos "User" user
 
 # Add CA certs
 RUN apt-get update && \
