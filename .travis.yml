@@ -12,11 +12,12 @@ branches:
   - main
 # install: go mod download
 script:
-- scripts/build-hello.sh
-- scripts/docker-build-hello.sh
+- docker/golang-idle/build.sh
+# - scripts/build-hello.sh
+# - scripts/docker-build-hello.sh
 git:
   quiet: true
-  depth: 10
+  depth: 5
 env:
 - GO111MODULE=on
 deploy:
