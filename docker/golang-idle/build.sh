@@ -12,6 +12,6 @@ cd "${basedir}"
 
 docker build \
     --build-arg imageVersion="${ts}" \
-    --tag kanisterio/golang:1.16 --tag "kanisterio/golang:1.16-${ts}" .
+    --tag "kanisterio/golang:bare-${ts}" .
 
 cd -
