@@ -9,7 +9,7 @@ services:
 # safelist
 branches:
   only:
-  - master
+  - main
 # install: go mod download
 script:
 - scripts/build-hello.sh
