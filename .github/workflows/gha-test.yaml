@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: "echo 'event:${{ github.event_name }}'"
-      - run: echo "os:${{ runner.os }}"
+      - run: 'echo "os: ${{ runner.os }}"'
       - run: echo "branch:${{ github.ref }}"
       - run: echo "repository:${{ github.repository }}"
       - name: Check out repository code
