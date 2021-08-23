@@ -4,10 +4,11 @@ jobs:
   GHA-Test:
     runs-on: ubuntu-latest
     steps:
-      - run: "echo 'event:${{ github.event_name }}'"
-      - run: 'echo "os: ${{ runner.os }}"'
-      - run: echo "branch:${{ github.ref }}"
-      - run: echo "repository:${{ github.repository }}"
+      - run: |
+          echo "event: ${{ github.event_name }}"
+          echo "os: ${{ runner.os }}"
+          echo "branch: ${{ github.ref }}"
+          echo "repository: ${{ github.repository }}"
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "cloned repository."
@@ -15,3 +16,8 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "status of this job:${{ job.status }}"
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.17' # The Go version to download (if necessary) and use.
+      - run: go version
