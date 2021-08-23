@@ -1,4 +1,4 @@
-FROM golang:1.16rc1
+FROM golang:1.17
 
 RUN adduser --home /user --ingroup users --disabled-password --gecos "User" user
 
