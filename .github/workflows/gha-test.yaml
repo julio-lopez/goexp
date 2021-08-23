@@ -1,16 +1,16 @@
 name: GHA Test
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  GHA-Test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "event ${{ github.event_name }}"
-      - run: echo "os ${{ runner.os }}"
-      - run: echo "branch ${{ github.ref }} repository ${{ github.repository }}"
+      - run: echo "event: ${{ github.event_name }}"
+      - run: echo "os: ${{ runner.os }}"
+      - run: echo "branch: ${{ github.ref }} repository ${{ github.repository }}"
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "cloned repository."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "this job's status ${{ job.status }}"
+      - run: echo "status of this job: ${{ job.status }}"
