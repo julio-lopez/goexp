@@ -4,20 +4,26 @@ jobs:
   GHA-Test:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Basic metadata
+        run: |
           echo "event: ${{ github.event_name }}"
           echo "os: ${{ runner.os }}"
           echo "branch: ${{ github.ref }}"
           echo "repository: ${{ github.repository }}"
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - run: echo "cloned repository."
-      - name: List files in the repository
+          echo "workspace dir: ${{ github.workspace }}"
+      - name: Build Docker image
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "status of this job:${{ job.status }}"
+          echo foo
+          TS="$(date +%Y.%m.%d-%H%M%S)"
+          docker build --build-arg imageVersion="${ts}" \
+            --tag "ghcr.io/${{ github.repository_owner }}/golang:idle-${TS}" \
+            docker/golang-idle
 
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '^1.17' # The Go version to download (if necessary) and use.
-      - run: go version
+#      - uses: actions/setup-go@v2
+#        with:
+#          go-version: '^1.17' # The Go version to download (if necessary) and use.
+#      - run: go version
+
+      - run: echo "status of this job:${{ job.status }}"
