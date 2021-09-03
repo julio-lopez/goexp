@@ -1,7 +1,9 @@
-name: GHA Test
-on: [push]
+name: Build Docker Image
+on:
+  release:
+    types: [ created ]
 jobs:
-  GHA-Test:
+  Docker-Image:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: "${{ github.repository_owner }}/golang"
