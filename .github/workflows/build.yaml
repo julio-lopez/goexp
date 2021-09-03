@@ -1,0 +1,24 @@
+name: Build
+on: [ push ]
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Basic metadata
+        run: |
+          echo "event: ${{ github.event_name }}"
+          echo "os: ${{ runner.os }}"
+          echo "branch: ${{ github.ref }}"
+          echo "repository: ${{ github.repository }}"
+          echo "workspace dir: ${{ github.workspace }}"
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.17'
+      - run: go version
+      - name: Check out repository
+        uses: actions/checkout@v2
+      # TODO: build code
+      - run: echo "status of this job:${{ job.status }}"
