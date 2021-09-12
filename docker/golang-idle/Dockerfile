@@ -4,7 +4,7 @@ RUN adduser --home /user --ingroup users --disabled-password --gecos "User" user
 
 # Add CA certs
 RUN apt-get update && \
-  apt-get install --yes ca-certificates fio jed emacs-nox sudo time tmux && \
+  apt-get install --yes ca-certificates fio jed emacs-nox sudo time tmux s6 && \
   apt-get autoclean && \
   apt-get clean && \
   rm -rf /var/cache/apt/*
