@@ -11,10 +11,11 @@ readonly basedir=$(realpath --logical --canonicalize-existing "$(dirname ${0})")
 
 cd "${basedir}"
 
+#    --label buildDate="${ts}" \
+
 docker build \
     --build-arg imageVersion="${buildVersion}" \
     --label buildVersion="${buildVersion}" \
-    --label buildDate="${ts}" \
     --tag "ghcr.io/julio-lopez/golang-idle:${buildVersion}" .
 
 cd -
