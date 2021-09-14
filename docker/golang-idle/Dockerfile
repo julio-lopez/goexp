@@ -14,7 +14,7 @@ WORKDIR /user
 
 RUN mkfifo stop
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
