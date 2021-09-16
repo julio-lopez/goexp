@@ -2,7 +2,7 @@ FROM golang:1.17
 
 # Add CA certs
 RUN apt-get update && \
-  apt-get install --yes ca-certificates fio jed emacs-nox sudo time tmux s6 wget tini && \
+  apt-get install --yes ca-certificates fio jed emacs-nox sudo time tmux s6 wget tini openssh-server && \
   apt-get autoclean && \
   apt-get clean && \
   rm -rf /var/cache/apt/* && \
