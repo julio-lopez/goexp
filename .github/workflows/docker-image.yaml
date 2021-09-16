@@ -2,6 +2,13 @@ name: Build Docker image
 on:
   release:
     types: [ created ]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'branch or git ref to use for the build'
+        required: true
+        default: 'main'
+
 jobs:
   Docker-Image:
     env:
@@ -25,6 +32,7 @@ jobs:
           echo "branch: ${{ github.ref }}"
           echo "repository: ${{ github.repository }}"
           echo "workspace dir: ${{ github.workspace }}"
+          echo "input ref: ${{ github.event.inputs.ref }}"
           echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
 
       - name: Old docker build
