@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set +o xtrace
 
-readonly SRC_DIR=${PATH_PREFIX:-/mnt}/src
+readonly SRC_DIR=${PATH_PREFIX:-/mnt/tmp}/go/src
 
 mkdir -p ${SRC_DIR}
 
@@ -14,4 +14,6 @@ git clone https://github.com/kastenhq/kopia
 
 cd kopia
 
-make build-current-os-noui
+go build .
+
+# make build-current-os-noui
