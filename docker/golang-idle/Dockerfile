@@ -2,7 +2,10 @@ FROM golang:1.17
 
 # Add CA certs
 RUN apt-get update && \
-  apt-get install --yes ca-certificates fio jed emacs-nox sudo time tmux s6 wget tini openssh-server && \
+  apt-get install --yes ca-certificates \
+    fio jed emacs-nox sudo time tmux s6 wget tini openssh-server unzip man \
+    less groff bat hstr jq pip && \
+  pip install yq && \
   apt-get autoclean && \
   apt-get clean && \
   rm -rf /var/cache/apt/* && \
@@ -18,7 +21,7 @@ ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
-COPY --chown=user:users clone-kopia.sh /user/
+#COPY --chown=user:users clone-kopia.sh /user/
 
 ARG imageVersion="unknown"
 
