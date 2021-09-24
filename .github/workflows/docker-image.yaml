@@ -24,32 +24,25 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Basic metadata
-        id: out
+      - name: Image version
+        id: image-version
+        run: echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
+
+      - name: Old docker build
         run: |
+          echo Basic Metadata
           echo "event: ${{ github.event_name }}"
           echo "os: ${{ runner.os }}"
           echo "branch: ${{ github.ref }}"
           echo "repository: ${{ github.repository }}"
           echo "workspace dir: ${{ github.workspace }}"
           echo "input ref: ${{ github.event.inputs.ref }}"
-          echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
+          echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.image-version.outputs.imageVersion }}"
 
-      - name: Old docker build
-        run: |
-          echo "TS=$(date +%Y.%m.%d-%H%M%S)"
-          echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.out.outputs.imageVersion }}"
-
+          # echo "TS=$(date +%Y.%m.%d-%H%M%S)"
           # docker build --build-arg imageVersion="${TS}" \
-          #   --tag "${REGISTRY}/${IMAGE_NAME}/golang:idle-${TS}" \
+          #   --tag "${REGISTRY}/${IMAGE_NAME}/golang-idle:${TS}" \
           #   docker/golang-idle
-
-      - name: Log to container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker image metadata
         id: meta
@@ -59,6 +52,14 @@ jobs:
           tags: |
             type=ref,event=branch
             type=sha
+            ${{ steps.image-version.outputs.imageVersion }}
+
+      - name: Log to container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
