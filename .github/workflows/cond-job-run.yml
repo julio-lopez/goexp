@@ -1,0 +1,44 @@
+name: Cond test
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master, ci-test, linux-ci ]
+    tags:
+      - v*
+env:
+  # environment variables shared between build steps
+  # do not include sensitive credentials and tokens here, instead pass them
+  # directly to tools that need them to limit the blast radius in case one of them
+  # becomes compromised and leaks credentials to external sites.
+  # required by Makefile
+  UNIX_SHELL_ON_WINDOWS: true
+  # set to true if Publish Artifacts should run
+  PUBLISH_ARTIFACTS: ${{ secrets.PUBLISH_ARTIFACTS }}
+  # where to publish releases for non-tagged commits
+  NON_TAG_RELEASE_REPO: ${{ secrets.NON_TAG_RELEASE_REPO }}
+  # RPM and APT packages GCS bucket/hostname.
+  PACKAGES_HOST: ${{ secrets.PACKAGES_HOST }}
+jobs:
+  build:
+    name: Linux build
+    runs-on: ubuntu-latest
+    outputs:
+      publish_artifacts: ${{ steps.check.outputs.publish_artifacts }}
+    steps:
+    - id: check
+      name: Set publish artifacts
+      if: env.PUBLISH_ARTIFACTS
+      run: echo "::set-output name=publish_artifacts::1"
+    - name: job outputs
+      run: |
+        echo "check.outputs:${{ toJSON(steps.check.outputs) }}"
+  publish:
+    name: Stage And Publish Artifacts
+    runs-on: ubuntu-latest
+    needs: build
+    if: needs.build.outputs.publish_artifacts != null
+    steps:
+    - run: |
+        echo "build outputs:${{ toJSON(needs.build.outputs) }}"
+        echo "ran"
