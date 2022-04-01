@@ -1,0 +1,63 @@
+name: Build kopia image
+on:
+  release:
+    types: [ created ]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'branch or git ref to use for the build'
+        required: true
+        default: 'master'
+
+jobs:
+  Docker-Image:
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: "${{ github.repository_owner }}/kopia"
+
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Image version
+        id: image-version
+        run: |
+          echo Basic Metadata
+          echo "event: ${{ github.event_name }}"
+          echo "os: ${{ runner.os }}"
+          echo "branch: ${{ github.ref }}"
+          echo "repository: ${{ github.repository }}"
+          echo "workspace dir: ${{ github.workspace }}"
+          echo "input ref: ${{ github.event.inputs.ref }}"
+          echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.image-version.outputs.imageVersion }}"
+          echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
+
+      - name: Docker image metadata
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=sha
+            ${{ steps.image-version.outputs.imageVersion }}
+
+      - name: Log to container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: docker/kopia-alpine
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
