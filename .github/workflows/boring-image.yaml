@@ -27,15 +27,12 @@ jobs:
         id: image-version
         run: |
           echo Basic Metadata
+          echo "goversion: ${{ github.event.inputs.goversion }}"
           echo "event: ${{ github.event_name }}"
           echo "repository: ${{ github.repository }}"
-          echo "context URL: ${{ github.repositoryUrl }}#${{ github.ref }}"
-          echo "context URL: ${{ github.repositoryUrl }}/tree/${{ github.ref_name }}/docker/goboring"
           echo "git ref: ${{ github.ref }}"
-          echo "goversion: ${{ github.event.inputs.goversion }}"
-          imageVersion=${{ github.event.inputs.goversion }}-$(date +%Y.%d.%m-%H%m)
-          echo "::set-output name=imageVersion::${imageVersion}"
-          echo "${REGISTRY}/${IMAGE_NAME}:${imageVersion}"
+          echo "context URL: ${{ github.repositoryUrl }}#${{ github.ref }}"
+          echo "context URL: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref_name }}/docker/goboring/Dockerfile"
 
       - name: Docker image metadata
         id: meta
