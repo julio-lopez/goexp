@@ -43,7 +43,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=sha
-            ${{ github.event.inputs.goversion }}"
+            ${{ github.event.inputs.goversion }}
             ${{ steps.image-version.outputs.imageVersion }}
 
       - name: Log to container registry
