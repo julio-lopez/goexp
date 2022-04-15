@@ -58,7 +58,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}/docker/goboring
+          context: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref_name }}/docker/goboring/Dockerfile
           build-args: |
             goVersion=${{ github.event.inputs.goversion }}
             tarSha256=${{ github.event.inputs.tarsha256 }}
