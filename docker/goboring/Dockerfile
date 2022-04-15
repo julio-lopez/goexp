@@ -5,8 +5,6 @@ ARG tarSha256="4a1fa2c8d77309e1ef5bafe7e80e75c06e70c0ae1212d9f3d95485017155491d"
 
 ADD "https://go-boringcrypto.storage.googleapis.com/go${golangVersion}.linux-amd64.tar.gz" go.tgz
 
-# COPY go${golangVersion}.linux-amd64.tar.gz go.tgz
-
 RUN echo "${tarSha256}  go.tgz" | sha256sum -c -
 
 RUN tar -xzf go.tgz
@@ -30,11 +28,6 @@ RUN apt-get update && \
   chmod -R 777 "$GOPATH"
 
 ENV PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-#RUN wget -O go.tgz "https://go-boringcrypto.storage.googleapis.com/go${golangVersion}.linux-amd64.tar.gz" && \
-#  echo "${tarSha256}  go.tgz" | sha256sum -c - && \
-#  tar -C /usr/local -xzf go.tgz && \
-#  rm go.tgz
 
 COPY --from=builder /go/ /usr/local/go/
 
