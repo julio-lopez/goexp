@@ -23,9 +23,6 @@ jobs:
       contents: read
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-
       - name: Image version
         id: image-version
         run: |
