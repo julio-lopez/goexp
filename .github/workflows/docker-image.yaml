@@ -35,7 +35,6 @@ jobs:
           echo "input ref: ${{ github.event.inputs.ref }}"
           echo "image: ${REGISTRY}/${IMAGE_NAME}:${{ github.ref_name }}"
 
-
       - name: Docker image metadata
         id: meta
         uses: docker/metadata-action@v3
