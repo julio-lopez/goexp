@@ -1,4 +1,4 @@
-name: Build Docker image
+name: Build golang-idle image
 on:
   release:
     types: [ created ]
@@ -10,7 +10,7 @@ on:
         default: 'main'
 
 jobs:
-  Docker-Image:
+  build:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: "${{ github.repository_owner }}/golang-idle"
@@ -24,25 +24,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Image version
-        id: image-version
-        run: echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
-
-      - name: Old docker build
+      - name: Basic metadata
         run: |
           echo Basic Metadata
           echo "event: ${{ github.event_name }}"
-          echo "os: ${{ runner.os }}"
-          echo "branch: ${{ github.ref }}"
+          echo "ref: ${{ github.ref }}"
+          echo "ref name: ${{ github.ref_name }}"
           echo "repository: ${{ github.repository }}"
           echo "workspace dir: ${{ github.workspace }}"
           echo "input ref: ${{ github.event.inputs.ref }}"
-          echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.image-version.outputs.imageVersion }}"
+          echo "image: ${REGISTRY}/${IMAGE_NAME}:${{ steps.image-version.outputs.imageVersion }}"
 
-          # echo "TS=$(date +%Y.%m.%d-%H%M%S)"
-          # docker build --build-arg imageVersion="${TS}" \
-          #   --tag "${REGISTRY}/${IMAGE_NAME}/golang-idle:${TS}" \
-          #   docker/golang-idle
 
       - name: Docker image metadata
         id: meta
@@ -51,8 +43,9 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
+            type=ref,event=tag
             type=sha
-            ${{ steps.image-version.outputs.imageVersion }}
+            {{date 'YYYY.MM.DD-hhmm'}}
 
       - name: Log to container registry
         uses: docker/login-action@v1
