@@ -6,6 +6,10 @@ on:
         description: 'Go version'
         required: true
         default: '1.17.8b7'
+      tarsha256:
+        description: 'SHA-256 for the downloaded Go distribution tar file'
+        required: true
+        default: '4a1fa2c8d77309e1ef5bafe7e80e75c06e70c0ae1212d9f3d95485017155491d'
 
 jobs:
   Docker-Image:
@@ -30,8 +34,9 @@ jobs:
           echo "repository: ${{ github.repository }}"
           echo "git ref: ${{ github.ref }}"
           echo "goversion: ${{ github.event.inputs.goversion }}"
-          echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
-          echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.image-version.outputs.imageVersion }}"
+          imageVersion=$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')
+          echo "::set-output name=imageVersion::${imageVersion}"
+          echo "${REGISTRY}/${IMAGE_NAME}:${imageVersion}"
 
       - name: Docker image metadata
         id: meta
@@ -55,6 +60,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: docker/goboring
+          build-args:
+            golangVersion=${{ github.event.inputs.goversion }}
+            tarSha256=${{ github.event.inputs.tarsha256 }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

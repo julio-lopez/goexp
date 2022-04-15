@@ -1,9 +1,9 @@
 FROM debian:stable-slim AS builder
 
-ARG golangVersion="1.17.8b7"
+ARG goVersion="1.17.8b7"
 ARG tarSha256="4a1fa2c8d77309e1ef5bafe7e80e75c06e70c0ae1212d9f3d95485017155491d"
 
-ADD "https://go-boringcrypto.storage.googleapis.com/go${golangVersion}.linux-amd64.tar.gz" go.tgz
+ADD "https://go-boringcrypto.storage.googleapis.com/go${goVersion}.linux-amd64.tar.gz" go.tgz
 
 RUN echo "${tarSha256}  go.tgz" | sha256sum -c -
 
@@ -33,11 +33,11 @@ COPY --from=builder /go/ /usr/local/go/
 
 WORKDIR ${GOPATH}
 
-ARG golangVersion
+ARG goVersion
 
-LABEL org.golang.version="${golangVersion}"
+LABEL org.golang.version="${goVersion}"
 
-ENV GOLANG_VERSION="${golangVersion}"
+ENV GOLANG_VERSION="${goVersion}"
 
 ARG imageVersion="unknown"
 
