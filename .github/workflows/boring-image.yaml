@@ -5,11 +5,11 @@ on:
       goversion:
         description: 'Go version'
         required: true
-        default: '1.17.8b7'
+        default: '1.17.9b7'
       tarsha256:
         description: 'SHA-256 for the downloaded Go distribution tar file'
         required: true
-        default: '4a1fa2c8d77309e1ef5bafe7e80e75c06e70c0ae1212d9f3d95485017155491d'
+        default: '9469d1b4c10f59c921c4666c52baba5f6ca63b1cce0eca95e03b5713ef27577c'
 
 jobs:
   Docker-Image:

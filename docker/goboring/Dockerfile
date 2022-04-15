@@ -1,7 +1,7 @@
 FROM debian:stable-slim AS builder
 
-ARG goVersion="1.17.8b7"
-ARG tarSha256="4a1fa2c8d77309e1ef5bafe7e80e75c06e70c0ae1212d9f3d95485017155491d"
+ARG goVersion="1.17.9b7"
+ARG tarSha256="9469d1b4c10f59c921c4666c52baba5f6ca63b1cce0eca95e03b5713ef27577c"
 
 ADD "https://go-boringcrypto.storage.googleapis.com/go${goVersion}.linux-amd64.tar.gz" go.tgz
 
