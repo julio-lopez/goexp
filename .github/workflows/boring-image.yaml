@@ -46,7 +46,6 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=tag
-            type=edge
             ${{ github.event.inputs.goversion }}
             ${{ github.event.inputs.goversion }}-{{date 'YYYY.MM.DD-hhmm'}}
 
