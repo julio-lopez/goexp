@@ -38,7 +38,3 @@ ARG goVersion
 LABEL org.golang.version="${goVersion}"
 
 ENV GOLANG_VERSION="${goVersion}"
-
-ARG imageVersion="unknown"
-
-LABEL imageVersion="${imageVersion}"
