@@ -12,7 +12,7 @@ on:
         default: '9469d1b4c10f59c921c4666c52baba5f6ca63b1cce0eca95e03b5713ef27577c'
 
 jobs:
-  Docker-Image:
+  build-image:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: "${{ github.repository_owner }}/goboring"
