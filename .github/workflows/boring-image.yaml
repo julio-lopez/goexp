@@ -61,7 +61,7 @@ jobs:
         with:
           context: docker/goboring
           build-args:
-            golangVersion=${{ github.event.inputs.goversion }}
+            goVersion=${{ github.event.inputs.goversion }}
             tarSha256=${{ github.event.inputs.tarsha256 }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
