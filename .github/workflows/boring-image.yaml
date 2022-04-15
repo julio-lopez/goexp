@@ -27,11 +27,9 @@ jobs:
         run: |
           echo Basic Metadata
           echo "event: ${{ github.event_name }}"
-          echo "os: ${{ runner.os }}"
-          echo "branch: ${{ github.ref }}"
           echo "repository: ${{ github.repository }}"
-          echo "workspace dir: ${{ github.workspace }}"
-          echo "go version: ${{ github.event.inputs.goversion }}"
+          echo "git ref: ${{ github.ref }}"
+          echo "goversion: ${{ github.event.inputs.goversion }}"
           echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
           echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.image-version.outputs.imageVersion }}"
 
