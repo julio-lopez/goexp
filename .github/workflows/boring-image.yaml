@@ -60,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: docker/goboring
-          build-args:
+          build-args: |
             goVersion=${{ github.event.inputs.goversion }}
             tarSha256=${{ github.event.inputs.tarsha256 }}
           push: true
