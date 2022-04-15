@@ -1,4 +1,6 @@
-FROM golang:1.17
+ARG golangVersion="1.18"
+
+FROM golang:${golangVersion}
 
 # Add CA certs
 RUN apt-get update && \
