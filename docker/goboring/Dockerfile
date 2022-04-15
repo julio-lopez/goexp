@@ -33,10 +33,12 @@ COPY --from=builder /go/ /usr/local/go/
 
 WORKDIR ${GOPATH}
 
+ARG golangVersion
+
 LABEL org.golang.version="${golangVersion}"
 
 ENV GOLANG_VERSION="${golangVersion}"
 
 ARG imageVersion="unknown"
 
-LABEL imageVersion="${imageVersion}}"
+LABEL imageVersion="${imageVersion}"
