@@ -55,7 +55,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref_name }}/docker/goboring/Dockerfile
+          context: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref_name }}/docker/kopia-boring/Dockerfile
           build-args: |
             goVersion=${{ github.event.inputs.goversion }}
             kopiaCommit=${{ github.event.inputs.kopiaCommit }}
