@@ -1,4 +1,4 @@
-FROM kastenhq/goboring:1.17.9b7 AS builder
+FROM ghcr.io/julio-lopez/goboring:1.17.9b7 AS builder
 
 # PWD: /go
 
