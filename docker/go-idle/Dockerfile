@@ -11,6 +11,7 @@ RUN apt-get update && \
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/apt/* && \
+  mkdir -p services/.s6-svscan && \
   adduser --home /user --ingroup users --disabled-password --gecos "User" user
 
 ARG golangVersion="1.18.1"
@@ -31,7 +32,8 @@ USER user:users
 
 WORKDIR /user
 
-RUN mkfifo stop
+RUN mkfifo stop && \
+  mkdir -p services/.s6-svscan
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
