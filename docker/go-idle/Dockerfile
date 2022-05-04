@@ -11,8 +11,9 @@ RUN apt-get update && \
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/apt/* && \
-  mkdir -p services/.s6-svscan && \
-  adduser --home /user --ingroup users --disabled-password --gecos "User" user
+  adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
+  mkdir -p /services/.s6-svscan && \
+  chown -R user /services
 
 ARG golangVersion="1.18.1"
 ARG golangTarSHA="b3b815f47ababac13810fc6021eb73d65478e0b2db4b09d348eefad9581a2334"
