@@ -39,8 +39,6 @@ ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
-#COPY --chown=user:users clone-kopia.sh /user/
-
 ARG imageVersion="unknown"
 
 LABEL imageVersion="${imageVersion}}"
