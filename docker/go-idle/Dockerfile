@@ -12,8 +12,8 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/apt/* && \
   adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
-  mkdir -p /services/.s6-svscan && \
-  chown -R user /services
+  mkdir -p /service/.s6-svscan /services && \
+  chown -R user /service /services
 
 ARG golangVersion="1.18.1"
 ARG golangTarSHA="b3b815f47ababac13810fc6021eb73d65478e0b2db4b09d348eefad9581a2334"
@@ -34,9 +34,11 @@ USER user:users
 WORKDIR /user
 
 RUN mkfifo stop && \
-  mkdir -p services/.s6-svscan
+  mkdir -p service/.s6-svscan services
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
+ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
+
+#ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
