@@ -11,6 +11,7 @@ RUN apt-get update && \
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/apt/* && \
+  rm -rf /etc/ssh/ssh_host_*_key* && \
   adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
