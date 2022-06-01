@@ -15,7 +15,6 @@ cd "${basedir}"
 
 docker build \
     --build-arg imageVersion="${buildVersion}" \
-    --label buildVersion="${buildVersion}" \
     --tag "ghcr.io/julio-lopez/go-idle:${buildVersion}" \
     --tag "ghcr.io/julio-lopez/go-idle:${buildVersion}-${ts}" .
 
