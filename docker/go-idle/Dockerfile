@@ -35,9 +35,9 @@ USER user:users
 WORKDIR /user
 
 RUN mkfifo stop && \
-  mkdir -p service/.s6-svscan services/sshd
+  mkdir -p service/.s6-svscan services/ssh
 
-COPY gen-ssh-host-keys.sh services/sshd
+COPY --chown=user:users ssh/ services/ssh/
 
 #ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
 
