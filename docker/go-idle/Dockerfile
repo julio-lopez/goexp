@@ -35,11 +35,13 @@ USER user:users
 WORKDIR /user
 
 RUN mkfifo stop && \
-  mkdir -p service/.s6-svscan services
+  mkdir -p service/.s6-svscan services/sshd
 
-ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
+COPY gen-ssh-host-keys.sh services/sshd
 
-#ENTRYPOINT ["/usr/bin/tini", "--"]
+#ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
