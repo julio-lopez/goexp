@@ -16,9 +16,9 @@ Port 8022
 #ListenAddress 0.0.0.0
 #ListenAddress ::
 
-HostKey /user/services/ssh/ssh_host_rsa_key
-HostKey /user/services/ssh/ssh_host_ecdsa_key
-HostKey /user/services/ssh/ssh_host_ed25519_key
+HostKey /user/services/ssh/keys/ssh_host_rsa_key
+HostKey /user/services/ssh/keys/ssh_host_ecdsa_key
+HostKey /user/services/ssh/keys/ssh_host_ed25519_key
 
 # Ciphers and keying
 #RekeyLimit default none
