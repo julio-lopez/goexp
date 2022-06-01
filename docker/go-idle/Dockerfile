@@ -16,8 +16,8 @@ RUN apt-get update && \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
 
-ARG golangVersion="1.18.1"
-ARG golangTarSHA="b3b815f47ababac13810fc6021eb73d65478e0b2db4b09d348eefad9581a2334"
+ARG golangVersion="1.18.2"
+ARG golangTarSHA="e54bec97a1a5d230fc2f9ad0880fcbabb5888f30ed9666eca4a91c5a32e86cbc"
 
 ENV GOPATH /go
 
