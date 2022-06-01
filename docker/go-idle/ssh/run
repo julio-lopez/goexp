@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if ! [ -d "keys" ] ; then
+    ./gen-ssh-host-keys.sh
+else
+    echo "Found 'keys' directory, assuming keys have already been generated"
+fi
+
+exec /usr/sbin/sshd -e -D -f sshd_config -p 8022
