@@ -34,14 +34,17 @@ USER user:users
 
 WORKDIR /user
 
+# Add s6 services directories and shutdown mechanisms
 RUN mkfifo stop && \
-  mkdir -p service/.s6-svscan services/ssh
+  mkdir -p service/.s6-svscan services/ssh && \
+  echo 's6-svscanctl -q "${HOME}/service"' > shutdown && \
+  chmod 755 shutdown
 
 COPY --chown=user:users ssh/ services/ssh/
 
-#ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
+ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
+#ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
