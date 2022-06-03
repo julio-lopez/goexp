@@ -38,7 +38,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=tag
             type=sha
-            {{date 'YYYY.MM.DD-hhmm'}}
+            {{date 'YYYY.MM.DD-HHmm'}}
 
       - name: Log to container registry
         uses: docker/login-action@v2
