@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
   apt-get install --yes --no-install-recommends \
     ca-certificates git fio jed emacs-nox sudo time tmux s6 wget curl tini \
-    openssh-server unzip man less groff bat hstr jq pip cargo && \
+    make openssh-server unzip man less groff bat hstr jq pip cargo && \
   pip install yq && \
   apt-get autoclean && \
   apt-get clean && \
