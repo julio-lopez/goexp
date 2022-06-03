@@ -19,7 +19,7 @@ readonly KEYS_DIR=${1:-"keys"}
 mkdir --parents --mode=700 "${KEYS_DIR}"
 
 create_key "${KEYS_DIR}/ssh_host_ed25519_key" -t ed25519
-create_key "${KEYS_DIR}/ssh_host_dsa_key" -t dsa
+create_key "${KEYS_DIR}/ssh_host_ecdsa_key" -t ecdsa
 create_key "${KEYS_DIR}/ssh_host_rsa_key" -t rsa
 
 # Alternatively:
