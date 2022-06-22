@@ -3,8 +3,8 @@ FROM ubuntu:22.04
 # Add CA certs
 RUN apt-get update && \
   apt-get install --yes --no-install-recommends \
-    ca-certificates git fio jed emacs-nox sudo time tmux s6 wget curl tini \
-    make openssh-server unzip man less groff bat hstr jq pip cargo && \
+    ca-certificates fio jed emacs-nox sudo time tmux s6 wget curl tini \
+    openssh-server unzip man less groff bat hstr jq pip cargo make git && \
   pip install yq && \
   apt-get autoclean && \
   apt-get clean && \
@@ -19,7 +19,7 @@ RUN apt-get update && \
 ARG golangVersion="1.18.3"
 ARG golangTarSHA="956f8507b302ab0bb747613695cdae10af99bbd39a90cae522b7c0302cc27245"
 
-ENV GOPATH /go
+ENV GOPATH /user/go
 
 RUN \
   set -eux; \
@@ -28,7 +28,7 @@ RUN \
   echo "$golangTarSHA *go.tgz" | sha256sum -c -; \
   tar -C /usr/local -xzf go.tgz; \
   rm go.tgz; \
-  mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+  mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 755 "$GOPATH"
 
 USER user:users
 
@@ -52,4 +52,4 @@ ARG imageVersion="unknown"
 
 LABEL imageVersion="${imageVersion}}"
 
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV PATH /usr/local/go/bin:$GOPATH/bin:$PATH
