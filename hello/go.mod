@@ -1,3 +1,3 @@
-module github.com/julio-lopez/go-exp/hello
+module github.com/julio-lopez/goexp/hello
 
 go 1.15
