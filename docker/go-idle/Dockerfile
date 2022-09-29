@@ -27,8 +27,7 @@ RUN \
   wget -O go.tgz "$url" --progress=dot:giga; \
   echo "$golangTarSHA *go.tgz" | sha256sum -c -; \
   tar -C /usr/local -xzf go.tgz; \
-  rm go.tgz; \
-  mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 755 "$GOPATH"
+  rm go.tgz
 
 USER user:users
 
@@ -36,9 +35,9 @@ WORKDIR /user
 
 # Add s6 services directories and shutdown mechanisms
 RUN mkfifo stop && \
-  mkdir -p service/.s6-svscan services/ssh && \
+  mkdir -p service/.s6-svscan services/ssh go/src go/bin && \
   echo 's6-svscanctl -q /user/service' > shutdown && \
-  chmod 755 shutdown
+  chmod 755 shutdown go
 
 COPY --chown=user:users ssh/ services/ssh/
 
