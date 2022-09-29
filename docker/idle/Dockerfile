@@ -16,19 +16,6 @@ RUN apt-get update && \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
 
-ARG golangVersion="1.18.3"
-ARG golangTarSHA="956f8507b302ab0bb747613695cdae10af99bbd39a90cae522b7c0302cc27245"
-
-ENV GOPATH /user/go
-
-RUN \
-  set -eux; \
-  url="https://dl.google.com/go/go${golangVersion}.linux-amd64.tar.gz"; \
-  wget -O go.tgz "$url" --progress=dot:giga; \
-  echo "$golangTarSHA *go.tgz" | sha256sum -c -; \
-  tar -C /usr/local -xzf go.tgz; \
-  rm go.tgz
-
 USER user:users
 
 WORKDIR /user
@@ -51,4 +38,4 @@ ARG imageVersion="unknown"
 
 LABEL imageVersion="${imageVersion}}"
 
-ENV PATH /usr/local/go/bin:$GOPATH/bin:$PATH
+ENV PATH /usr/local/go/bin:/user/go/bin:$PATH
