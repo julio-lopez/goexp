@@ -1,10 +1,33 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.10
 
-# Add CA certs
 RUN apt-get update && \
   apt-get install --yes --no-install-recommends \
-    ca-certificates fio jed emacs-nox sudo time tmux s6 wget curl tini \
-    openssh-server unzip man less groff bat hstr jq pip cargo make git && \
+    bat \
+    build-essential \
+    ca-certificates \
+    cargo \
+    curl \
+    emacs-nox \
+    file \
+    fio \
+    git \
+    hstr \
+    jed \
+    jq \
+    less \
+    make \
+    man \
+    openssh-server \
+    pip \
+    procps \
+    s6 \
+    sudo \
+    time \
+    tmux \
+    tini \
+    unzip \
+    wget  \
+    && \
   pip install yq && \
   apt-get autoclean && \
   apt-get clean && \
