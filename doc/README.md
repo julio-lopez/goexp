@@ -1,9 +1,10 @@
 # Notes
 
-## Travis Setup
+## CI Setup
 
-* Add [`.travis.yml`](../.travis.yml)
-* Set environment => Go, version, Docker, etc.
+Using GitHub Actions
+* Add a YAML workflow in the [`.github/workflows`](../.github/workflows/) directory.
+* Set environment => Go, version, Docker, etc. in workflow file.
 
 ## Docker Builds
 
@@ -20,6 +21,6 @@ There are many ways of doing this: goreleaser, etc. Approaches explored here
   is Alpine
 * `docker-push-hello.sh` pushes the image to Dockerhub
 
-The scripts are called from different stages during Travis CI. See the
-`travis.yml` for details
+The scripts are called from different stages during the GHA workflows. See the
+`idle-image.yaml` for an example.
 
