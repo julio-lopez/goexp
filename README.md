@@ -15,4 +15,3 @@ expected to be easily outdated.
 
 * Cannonical "Hello World" example in [hello](hello)
 
-* Simple travis integration in (.travis.yaml)
