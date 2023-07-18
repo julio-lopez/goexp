@@ -34,10 +34,9 @@ jobs:
       publish_artifacts: ${{ steps.check.outputs.publish_artifacts }}
     steps:
     -
-      name: Metadata
+      name: Basic Metadata
       id: metadata
       run: |
-        echo Basic Metadata
         echo "event: ${{ github.event_name }}"
         echo "os: ${{ runner.os }}"
         echo "branch: ${{ github.ref }}"
