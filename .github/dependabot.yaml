@@ -2,9 +2,26 @@ version: 2
 updates:
   - package-ecosystem: gomod
     directory: "/"
+    open-pull-requests-limit: 2
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: "/"
     open-pull-requests-limit: 1
     schedule:
       interval: weekly
+      day: tuesday
+    groups:
+      common-golang-dependencies:
+        patterns:
+        - "cloud.google.com/*"
+        - "github.com/aws/aws-sdk-go/*"
+        - "github.com/Azure/azure-sdk-for-go/sdk/*"
+        - "github.com/minio/minio-go/*"
+        - "golang.org/x/*"
+        - "google.golang.org/*"
+        - "github.com/prometheus/*"
+        - "go.opentelemetry.io/*"
   - package-ecosystem: github-actions
     directory: "/"
     open-pull-requests-limit: 2
