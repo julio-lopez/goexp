@@ -43,6 +43,8 @@ jobs:
         echo "repository: ${{ github.repository }}"
         echo "workspace dir: ${{ github.workspace }}"
         echo "input ref: ${{ github.event.inputs.ref }}"
+        echo "target ref:" $${{ github.event.inputs.ref || github.ref }}
+        echo "targetRef=$${{ github.event.inputs.ref || github.ref }}" >> $GITHUB_OUTPUT
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
         echo "imageVersion=some-version-foo" >> $GITHUB_OUTPUT
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
