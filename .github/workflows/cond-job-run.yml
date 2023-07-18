@@ -40,6 +40,7 @@ jobs:
         echo "event: ${{ github.event_name }}"
         echo "os: ${{ runner.os }}"
         echo "branch: ${{ github.ref }}"
+        echo "ref_name: ${{ github.ref_name }}"
         echo "repository: ${{ github.repository }}"
         echo "workspace dir: ${{ github.workspace }}"
         echo "input ref: ${{ github.event.inputs.ref }}"
@@ -48,6 +49,12 @@ jobs:
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
         echo "imageVersion=some-version-foo" >> $GITHUB_OUTPUT
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
+    -
+      name: Check out repository
+      uses: actions/checkout@v3
+      with:
+        ref: $${{ github.event.inputs.ref || github.ref }}
+
     -
       id: check
       name: Set publish artifacts
