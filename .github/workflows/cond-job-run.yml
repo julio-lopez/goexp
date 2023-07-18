@@ -43,9 +43,9 @@ jobs:
         echo "repository: ${{ github.repository }}"
         echo "workspace dir: ${{ github.workspace }}"
         echo "input ref: ${{ github.event.inputs.ref }}"
-        echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.metadata.outputs.imageVersion }}"
-        echo "::set-output name=imageVersion::$(git log -1 --format=%ad-%h --date=format:'%Y.%d.%m-%H%m')"
-        echo "${REGISTRY}/${IMAGE_NAME}:${{ steps.metadata.outputs.imageVersion }}"
+        echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
+        echo "name=imageVersionFoo" >> $GITHUB_OUTPUT
+        echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
     -
       id: check
       name: Set publish artifacts
