@@ -6,6 +6,13 @@ on:
     branches: [ main, ci-test, linux-ci ]
     tags:
       - v*
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'branch or git ref to use for the build'
+        required: true
+        default: 'main'
+
 env:
   # environment variables shared between build steps
   # do not include sensitive credentials and tokens here, instead pass them
