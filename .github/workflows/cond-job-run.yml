@@ -1,9 +1,9 @@
 name: Cond test
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   push:
-    branches: [ master, ci-test, linux-ci ]
+    branches: [ main, ci-test, linux-ci ]
     tags:
       - v*
 env:
