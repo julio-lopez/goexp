@@ -39,13 +39,13 @@ jobs:
       run: |
         echo "event: ${{ github.event_name }}"
         echo "os: ${{ runner.os }}"
-        echo "branch: ${{ github.ref }}"
-        echo "ref_name: ${{ github.ref_name }}"
+        echo "github.ref: ${{ github.ref }}"
+        echo "github.ref_name: ${{ github.ref_name }}"
         echo "repository: ${{ github.repository }}"
         echo "workspace dir: ${{ github.workspace }}"
         echo "input ref: ${{ github.event.inputs.ref }}"
-        echo "target ref:" $${{ github.event.inputs.ref || github.ref }}
-        echo "targetRef=$${{ github.event.inputs.ref || github.ref }}" >> $GITHUB_OUTPUT
+        echo "target ref: ${{ github.event.inputs.ref || github.ref }}"
+        echo "targetRef=${{ github.event.inputs.ref || github.ref }}" >> $GITHUB_OUTPUT
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
         echo "imageVersion=some-version-foo" >> $GITHUB_OUTPUT
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
@@ -53,8 +53,8 @@ jobs:
       name: Check out repository
       uses: actions/checkout@v3
       with:
-        ref: $${{ steps.metadata.outputs.targetRef }}
-      #  ref: $${{ github.event.inputs.ref || github.ref }}
+      #  ref: ${{ steps.metadata.outputs.targetRef }}
+      ref: ${{ github.event.inputs.ref_name || github.ref }}
 
     -
       id: check
