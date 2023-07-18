@@ -44,16 +44,17 @@ jobs:
         echo "workspace dir: ${{ github.workspace }}"
         echo "input ref: ${{ github.event.inputs.ref }}"
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
-        echo "name=imageVersionFoo" >> $GITHUB_OUTPUT
+        echo "imageVersion=some-version-foo" >> $GITHUB_OUTPUT
         echo "steps.metadata.outputs.imageVersion:${{ steps.metadata.outputs.imageVersion }}"
     -
       id: check
       name: Set publish artifacts
       if: env.PUBLISH_ARTIFACTS
-      run: echo "::set-output name=publish_artifacts::1"
+      run: echo "publish_artifacts=1"
     -
       name: job outputs
       run: |
+        echo "metadata.outputs:${{ steps.metadata.outputs }}"
         echo "check.outputs:${{ toJSON(steps.check.outputs) }}"
   publish:
     name: Stage And Publish Artifacts
