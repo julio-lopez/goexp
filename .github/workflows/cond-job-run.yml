@@ -38,7 +38,7 @@ jobs:
       id: metadata
       run: |
         echo "event_name: ${{ github.event_name }}"
-        echo "event:" ${{ toJSON(github.event) }}
+        echo "event:" ${{ toJSON(github.event) }}"
         echo "os: ${{ runner.os }}"
         echo "github.ref: ${{ github.ref }}"
         echo "github.ref_name: ${{ github.ref_name }}"
