@@ -1,6 +1,12 @@
 FROM ubuntu:23.04
 
-RUN apt-get update && \
+# Install required tools and signing keys for Google SDK
+RUN \
+  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | \
+    tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+    apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+  apt-get update && \
   apt-get install --yes --no-install-recommends \
     bat \
     build-essential \
@@ -38,6 +44,9 @@ RUN apt-get update && \
   adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
+
+# Install Google SDK
+# RUN apt-get install google-cloud-cli -y
 
 #pip install yq && \
 
