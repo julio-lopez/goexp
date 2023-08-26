@@ -53,4 +53,5 @@ jobs:
         run: "go test ./..."
 
       -
+        name: Job status
         run: echo "status of this job:${{ job.status }}"
