@@ -13,6 +13,7 @@ RUN \
     file \
     fio \
     git \
+    gnupg \
     hstr \
     jed \
     jq \
