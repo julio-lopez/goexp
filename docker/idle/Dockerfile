@@ -19,6 +19,7 @@ RUN apt-get update && \
     man \
     openssh-server \
     pip \
+    pipx \
     procps \
     s6 \
     sudo \
@@ -28,7 +29,6 @@ RUN apt-get update && \
     unzip \
     wget  \
     && \
-  pip install yq && \
   apt-get autoclean && \
   apt-get clean && \
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
@@ -38,6 +38,8 @@ RUN apt-get update && \
   adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
+
+#pip install yq && \
 
 USER user:users
 
