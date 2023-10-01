@@ -52,7 +52,7 @@ jobs:
       # echo "event: ${{ toJSON(github.event) }}"
     -
       name: Check out repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
       #  ref: ${{ steps.metadata.outputs.targetRef }}
         ref: ${{ github.event.inputs.ref_name || github.ref }}
