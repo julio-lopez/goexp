@@ -4,7 +4,7 @@ updates:
     directory: "/"
     open-pull-requests-limit: 2
     schedule:
-      interval: monthly
+      interval: weekly
     groups:
       common-golang-dependencies:
         patterns:
@@ -20,4 +20,4 @@ updates:
     directory: "/"
     open-pull-requests-limit: 2
     schedule:
-      interval: monthly
+      interval: weekly
