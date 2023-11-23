@@ -76,18 +76,20 @@ jobs:
       run: go build ./...
     -
       name: staticcheck
-      uses: dominikh/staticcheck-action@v1.3.0
+      uses: dominikh/staticcheck-action@ba605356b4b29a60e87ab9404b712f3461e566dc # v1.3.0
       continue-on-error: true
       with:
-        version: "2023.1.5"
+        version: "2023.1.6"
         install-go: false
     -
       name: golangci-lint
       continue-on-error: true
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@3a919529898de77ec3da873e3063ca4b10e7f5cc # v3.7.0
       with:
         version: v1.54
-        skip-cache: true
+        # skip-cache: true
+        skip-pkg-cache: true
+        skip-build-cache: true
     -
       name: GoKart
       run: |
