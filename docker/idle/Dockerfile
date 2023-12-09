@@ -1,4 +1,4 @@
-FROM ubuntu:23.04
+FROM ubuntu:23.10
 
 # Install required tools and signing keys for Google SDK
 RUN \
@@ -46,10 +46,9 @@ RUN \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
 
-# Install Google SDK
-# RUN apt-get install google-cloud-cli -y
+RUN ln -s /usr/bin/batcat /usr/local/bin/bat
 
-#pip install yq && \
+ENV PATH /usr/local/go/bin:/user/go/bin:$PATH
 
 USER user:users
 
@@ -58,10 +57,8 @@ WORKDIR /user
 # Add s6 services directories and shutdown mechanisms
 RUN mkfifo stop && \
   mkdir -p service/.s6-svscan services/ssh go/src go/bin && \
-  echo 's6-svscanctl -q /user/service' > shutdown && \
-  chmod 755 shutdown go
-
-COPY --chown=user:users ssh/ services/ssh/
+  echo 's6-svscanctl -q /user/service' > shutdown-s6 && \
+  chmod 755 shutdown-s6 go
 
 ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
 
@@ -69,8 +66,10 @@ ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
 
+COPY --chown=user:users ssh/ services/ssh/
+
+COPY --chown=user:users home/ ./
+
 ARG imageVersion="unknown"
 
 LABEL imageVersion="${imageVersion}}"
-
-ENV PATH /usr/local/go/bin:/user/go/bin:$PATH
