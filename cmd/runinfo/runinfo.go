@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"runtime/debug"
 	"sync"
 )
 
-// Version of the executable set at link-time. If not set, then the info will
+// version of the executable set at link-time. If not set, then the info will
 // be retrieved from the runtime
-var Version string
+var version string
 
 func main() {
 	fmt.Println("version 1:", getVersion())
@@ -17,9 +16,8 @@ func main() {
 }
 
 var getVersion func() string = sync.OnceValue(func() string {
-	log.Println("getVersion called")
-	if Version != "" {
-		return Version
+	if version != "" {
+		return version
 	}
 
 	if buildInfo, ok := debug.ReadBuildInfo(); ok {
