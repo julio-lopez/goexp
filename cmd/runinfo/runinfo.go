@@ -11,11 +11,11 @@ import (
 var version string
 
 func main() {
-	fmt.Println("version 1:", getVersion())
-	fmt.Println("version 2:", getVersion())
+	fmt.Println("version 1:", getVersion2())
+	fmt.Println("version 2:", getVersion2())
 }
 
-var getVersion func() string = sync.OnceValue(func() string {
+var getVersion = sync.OnceValue(func() string {
 	if version != "" {
 		return version
 	}
@@ -26,3 +26,7 @@ var getVersion func() string = sync.OnceValue(func() string {
 
 	return "(unknown version)"
 })
+
+func getVersion2() string {
+	return getVersion()
+}
