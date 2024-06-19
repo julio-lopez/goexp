@@ -9,6 +9,9 @@ on:
         required: true
         default: 'master'
 
+permissions:
+  contents: read
+
 jobs:
   Docker-Image:
     env:

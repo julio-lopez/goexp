@@ -13,6 +13,9 @@ on:
         required: true
         default: 'main'
 
+permissions:
+  contents: read
+
 env:
   # environment variables shared between build steps
   # do not include sensitive credentials and tokens here, instead pass them
