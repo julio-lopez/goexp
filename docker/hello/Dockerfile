@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.20
 
 ENTRYPOINT [ "/usr/local/bin/hello" ]
 
