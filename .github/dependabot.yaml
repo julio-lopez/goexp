@@ -30,6 +30,7 @@ updates:
         patterns:
         - "docker/*"
   - package-ecosystem: docker
+    directory: "/"
     open-pull-requests-limit: 4
     schedule:
       interval: weekly
