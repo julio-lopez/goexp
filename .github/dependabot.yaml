@@ -35,3 +35,7 @@ updates:
     open-pull-requests-limit: 4
     schedule:
       interval: weekly
+    groups:
+      all:
+        patterns:
+        - "*"
