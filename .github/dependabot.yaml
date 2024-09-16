@@ -20,7 +20,7 @@ updates:
     directory: "/"
     open-pull-requests-limit: 7
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       github-actions:
         patterns:
@@ -34,7 +34,7 @@ updates:
     - "/docker/*"
     open-pull-requests-limit: 4
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       all:
         patterns:
