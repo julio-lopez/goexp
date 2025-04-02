@@ -19,7 +19,9 @@ import (
 func WriteFile(filename string, content []byte, overwrite bool) error {
 	// perform checks (light) before writing file (heavy)
 	if overwrite {
-		os.Remove(filename)
+		if err := os.Remove(filename); err != nil {
+			log.Printf("could not remove %s due to '%s'", filename, err)
+		}
 	}
 
 	// If script exists or we can't stat it
