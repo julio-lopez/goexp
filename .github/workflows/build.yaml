@@ -91,3 +91,6 @@ jobs:
       with:
         version: v2.0.2
         # skip-cache: true
+        # Use a long invalidation interval, the go.mod hash is more likely to
+        # change more frequently and force a cache invalidation anyway.
+        cache-invalidation-interval: 60
