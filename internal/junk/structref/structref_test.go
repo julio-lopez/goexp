@@ -29,8 +29,8 @@ type nodeBase struct {
 }
 
 type keyRef struct {
-	r nodeRef
-	k byte
+	r nodeRef //nolint:unused
+	k byte    //nolint:unused
 	// Note: type and key could be packed into the same struct if the pointer
 	// could be stored separately, either via unsafe.Pointer or using an
 	// explicit "unsafe cast", is this possible ?
@@ -47,7 +47,7 @@ type (
 
 type node4 struct {
 	refs refArray4
-	keys [node4Max]byte
+	keys [node4Max]byte //nolint:unused
 	nodeBase
 	// TODO: the set of keys present needs to be explicitly included in the node
 	// it cannot be a bitmap for nodes smaller than node16, assuming a `byte`
@@ -67,7 +67,7 @@ func (n *node4) getChildrenCapacity() int {
 
 type node16 struct {
 	refs refArray16
-	keys [node16Max]byte
+	keys [node16Max]byte //nolint:unused
 	nodeBase
 	// TODO: the set of keys present needs to be explicitly included in the node
 	// it cannot be a bitmap for nodes smaller than node16, assuming a `byte`
@@ -105,5 +105,8 @@ func TestTypes(t *testing.T) {
 
 	// check interface compatilibity
 	nr = &n4
+	t.Log("nr.isTerminal:", nr.isTerminal())
+
 	nr = &n16
+	t.Log("nr.isTerminal:", nr.isTerminal())
 }
