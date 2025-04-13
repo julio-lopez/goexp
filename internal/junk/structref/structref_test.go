@@ -67,6 +67,7 @@ func (n *node4) getChildrenCapacity() int {
 	return node4Max
 }
 
+//lint:ignore U1000 fields currently not used
 type node16 struct {
 	refs refArray16
 	keys [node16Max]byte //nolint:unused
