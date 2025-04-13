@@ -1,6 +1,8 @@
 package buildinfo
 
 import (
+	"encoding/json"
+	"log"
 	"runtime/debug"
 	"testing"
 
@@ -108,4 +110,21 @@ func TestGetRevisionString(t *testing.T) {
 		got := getRevisionString(c.input)
 		require.Equal(t, c.want, got)
 	}
+}
+
+func TestReadBuildInfo(t *testing.T) {
+	bi, ok := debug.ReadBuildInfo()
+	require.True(t, ok)
+	require.NotNil(t, bi)
+
+	t.Logf("%s", toJSONIndent(bi))
+}
+
+func toJSONIndent(v any) []byte {
+	b, err := json.MarshalIndent(v, "", " ")
+	if err != nil {
+		log.Fatalln("could not JSON-encode build info:", err)
+	}
+
+	return b
 }

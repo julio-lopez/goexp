@@ -1,7 +1,6 @@
 package buildinfo
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"runtime/debug"
@@ -136,13 +135,4 @@ func getRevisionString(s []debug.BuildSetting) string {
 	}
 
 	return "0." + t + "-" + r + modStr
-}
-
-func toJSONIndent(v any) []byte {
-	b, err := json.MarshalIndent(v, "", " ")
-	if err != nil {
-		log.Fatalln("could not JSON-encode build info:", err)
-	}
-
-	return b
 }
