@@ -28,6 +28,7 @@ type nodeBase struct {
 	childCount uint8
 }
 
+//lint:ignore U1000 fields currently not used
 type keyRef struct {
 	r nodeRef //nolint:unused
 	k byte    //nolint:unused
