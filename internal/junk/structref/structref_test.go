@@ -46,6 +46,7 @@ type (
 	refArray16 [node16Max]nodeRef
 )
 
+//lint:ignore U1000 fields currently not used
 type node4 struct {
 	refs refArray4
 	keys [node4Max]byte //nolint:unused
