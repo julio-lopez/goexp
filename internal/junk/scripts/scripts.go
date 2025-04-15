@@ -3,9 +3,8 @@ package scripts
 import (
 	"bytes"
 	"log"
+	"regexp"
 	"strings"
-
-	"al.essio.dev/pkg/shellescape"
 
 	"github.com/julio-lopez/goexp/internal/junk/iohelp"
 )
@@ -21,7 +20,7 @@ func quoteStringSlice(s []string) []string {
 
 	r := make([]string, len(s))
 	for i, c := range s {
-		r[i] = shellescape.Quote(c)
+		r[i] = shellQuote(c)
 	}
 
 	return r
@@ -51,4 +50,20 @@ func assertNoError(err error) {
 	if err != nil {
 		log.Fatalln("unexpected error:", err)
 	}
+}
+
+var pattern = regexp.MustCompile(`[^\w@%+=:,./-]`)
+
+// Quote returns a shell-escaped version of the string s. The returned value
+// is a string that can safely be used as one token in a shell command line.
+func shellQuote(s string) string {
+	if len(s) == 0 {
+		return "''"
+	}
+
+	if pattern.MatchString(s) {
+		return "'" + strings.ReplaceAll(s, "'", "'\"'\"'") + "'"
+	}
+
+	return s
 }
