@@ -1,10 +1,10 @@
 module github.com/julio-lopez/goexp
 
-go 1.24.2
+go 1.24
 
 require (
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/mod v0.24.0
+	golang.org/x/mod v0.25.0
 )
 
 require (
