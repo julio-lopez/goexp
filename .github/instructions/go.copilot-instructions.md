@@ -166,6 +166,13 @@ Refer to the linter configuration in `.golangci.yml` for style checks and standa
 - Use `sync.RWMutex` when you have many readers
 - Choose between channels and mutexes based on the use case: use channels for communication, mutexes for protecting state
 - Use `sync.Once` for one-time initialization
+- Use the new `WaitGroup.Go` method ([documentation](https://pkg.go.dev/sync#WaitGroup)):
+		```go
+		var wg sync.WaitGroup
+		wg.Go(task1)
+		wg.Go(task2)
+		wg.Wait()
+		```
 
 ## Error Handling Patterns
 
@@ -202,6 +209,15 @@ Refer to the linter configuration in `.golangci.yml` for style checks and standa
 
 ## API Design
 
+### HTTP Handlers
+
+- Use `http.HandlerFunc` for simple handlers
+- Implement `http.Handler` for handlers that need state
+- Use middleware for cross-cutting concerns
+- Set appropriate status codes and headers
+- Handle errors gracefully and return appropriate error responses
+- Prefer the enhanced `net/http` `ServeMux` with pattern-based routing and method matching
+
 ### JSON APIs
 
 - Use struct tags to control JSON marshaling
@@ -209,6 +225,15 @@ Refer to the linter configuration in `.golangci.yml` for style checks and standa
 - Use pointers for optional fields
 - Consider using `json.RawMessage` for delayed parsing
 - Handle JSON errors appropriately
+
+### HTTP Clients
+
+- Keep the client struct focused on configuration and dependencies only (e.g., base URL, `*http.Client`, auth, default headers). It must not store per-request state
+- Do not store or cache `*http.Request` inside the client struct, and do not persist request-specific state across calls; instead, construct a fresh request per method invocation
+- Methods should accept `context.Context` and input parameters, assemble the `*http.Request` locally (or via a short-lived builder/helper created per call), then call `c.httpClient.Do(req)`
+- If request-building logic is reused, factor it into unexported helper functions or a per-call builder type; never keep `http.Request` (URL params, body, headers) as fields on the long-lived client
+- Ensure the underlying `*http.Client` is configured (timeouts, transport) and is safe for concurrent use; avoid mutating `Transport` after first use
+- Always set headers on the request instance you’re sending, and close response bodies (`defer resp.Body.Close()`), handling errors appropriately
 
 ## Performance Optimization
 
