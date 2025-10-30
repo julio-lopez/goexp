@@ -23,9 +23,9 @@ Refer to the linter configuration in `.golangci.yml` for style checks and standa
 - Write self-documenting code with clear, descriptive names
 - Document exported types, functions, methods, and packages
 - Use Go modules for dependency management
-- Leverage and prefer the Go standard library when functionality exists instead of writing custom implemetnations (e.g., use `strings.Builder` for string concatenation, `filepath.Join` for path construction)
+- Leverage and prefer the Go standard library when functionality exists instead of writing custom implementations (e.g., use `strings.Builder` for string concatenation, `filepath.Join` for path construction)
 - Write comments in English
-- Use allowed ASCII for identificers; avoid using non-ASCII characters in identifiers
+- Use allowed ASCII for identifiers; avoid using non-ASCII characters in identifiers
 - Avoid using emoji in code and comments
 
 ## Naming Conventions
@@ -188,7 +188,7 @@ Refer to the linter configuration in `.golangci.yml` for style checks and standa
 
 - Check errors immediately after the function call
 - Don't ignore errors using `_` unless you have a valid reason (explain and document why)
-- Preserve error chains to maintain full context, whrap errors with context using `errors.Wrap()`
+- Preserve error chains to maintain full context, wrap errors with context using `errors.Wrap()`
 
 - Create custom error types when checking for specific errors is needed
 - Place error returns as the last return value
