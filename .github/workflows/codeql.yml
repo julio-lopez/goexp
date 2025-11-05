@@ -19,6 +19,10 @@ jobs:
       fail-fast: false
     steps:
     -
+      uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      with:
+        egress-policy: audit
+    -
       name: Checkout repository
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
     -
@@ -39,7 +43,7 @@ jobs:
         category: "/language:actions"
 
   analyze-go:
-    name: Analyze
+    name: Analyze Go
     # Runner size impacts CodeQL analysis time. To learn more, please see:
     #   - https://gh.io/recommended-hardware-resources-for-running-codeql
     #   - https://gh.io/supported-runners-and-hardware-resources
@@ -54,6 +58,10 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+    -
+      uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      with:
+        egress-policy: audit
     -
       name: Checkout repository
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
