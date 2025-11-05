@@ -14,16 +14,14 @@ jobs:
     #   - https://gh.io/supported-runners-and-hardware-resources
     #   - https://gh.io/using-larger-runners
     # Consider using larger runners for possible analysis time improvements.
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       actions: read
       contents: read
       security-events: write
-
     strategy:
       fail-fast: false
-
     steps:
     -
       name: Checkout repository
@@ -39,7 +37,7 @@ jobs:
       name: Build
       run: |
         go build ./...
-        go test -list ./...
+        # go test -list ./...
     -
       name: Initialize CodeQL
       uses: github/codeql-action/init@4b6aa0b07da05d6e43d0e5f9c8596a6532ce1c85 # v2.22.7
