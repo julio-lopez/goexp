@@ -2,8 +2,6 @@ module github.com/julio-lopez/goexp
 
 go 1.24.9
 
-toolchain go1.24.9
-
 require (
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/mod v0.29.0
