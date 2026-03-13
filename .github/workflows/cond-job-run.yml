@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [ main ]
   push:
-    branches: [ main, ci-test, linux-ci ]
+    branches: [ main, ci-test ]
     tags:
       - v*
   workflow_dispatch:

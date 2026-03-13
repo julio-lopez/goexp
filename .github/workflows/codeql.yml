@@ -1,8 +1,11 @@
 name: "CodeQL"
 
 on:
-  push:
   pull_request:
+  push:
+    branches: [ main, ci-test ]
+    tags:
+      - v*
   # schedule:
   #   - cron: '41 21 6 * *'
 
