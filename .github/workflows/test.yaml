@@ -1,0 +1,63 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches: [ main, ci-test, test/tmpdirlog ]
+    tags:
+      - v*
+#  schedule:
+#    - cron: '35 10 10 * *'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      -
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+      -
+        name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      -
+        name: Setup Go
+        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
+        with:
+          cache: true
+          go-version-file: 'go.mod'
+      -
+        name: Job metadata
+        run: |
+          echo "event: ${{ github.event_name }}"
+          echo "os: ${{ runner.os }}"
+          echo "branch: ${{ github.ref }}"
+          echo "repository: ${{ github.repository }}"
+          echo "workspace dir: ${{ github.workspace }}"
+          echo "TMPDIR: ${TMPDIR}"
+          echo "TEMPDIR: ${TEMPDIR}"
+          go version
+
+      -
+        name: Install gotestsum
+        run: go install gotest.tools/gotestsum@v1.13.0
+
+      # -
+      #   name: go build
+      #   run: go build ./...
+      # -
+      #   name: go vet
+      #   run: "go vet ./..."
+      # -
+      #   name: go test
+      #   run: "go test ./..."
+      -
+        name: Job status
+        run: echo "status of this job:${{ job.status }}"
+
