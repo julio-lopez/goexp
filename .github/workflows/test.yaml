@@ -40,7 +40,8 @@ jobs:
           echo "branch: ${{ github.ref }}"
           echo "repository: ${{ github.repository }}"
           echo "workspace dir: ${{ github.workspace }}"
-          echo "${TMPDIR}"
+          echo "TMPDIR: ${TMPDIR}"
+          echo "TEMPDIR: ${TEMPDIR}"
       #   go version
 
       # -
