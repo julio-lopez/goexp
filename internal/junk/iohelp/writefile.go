@@ -54,6 +54,11 @@ func WriteFile(filename string, content []byte, overwrite bool) error {
 	// - rename existing file if any to a backup file
 	// - write to target file
 	// - recover or remove backup file
+	// However, there is race between the first file rename and the file
+	// creation time. The file creation could be made "exclusive", to ensure
+	// it does not overwrite an existing file. That does not prevent the file
+	// from being renamed (by a compiting process) after the current process
+	// creates the file.
 
 	var tempName string
 
