@@ -1,4 +1,4 @@
-package strprefix_test
+package junk_test
 
 import (
 	"bytes"
