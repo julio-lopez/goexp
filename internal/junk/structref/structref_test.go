@@ -46,6 +46,13 @@ type (
 	refArray16 [node16Max]nodeRef
 )
 
+func (r refArray4) sliceAll() []nodeRef  { return r[:] }
+func (r refArray16) sliceAll() []nodeRef { return r[:] }
+
+type slicerAll interface {
+	sliceAll() []nodeRef
+}
+
 //lint:ignore U1000 fields currently not used
 type node4 struct {
 	refs refArray4
@@ -73,7 +80,7 @@ type node16 struct {
 	keys [node16Max]byte //nolint:unused
 	nodeBase
 	// TODO: the set of keys present needs to be explicitly included in the node
-	// it cannot be a bitmap for nodes smaller than node16, assuming a `byte`
+	// it cannot be a bitmap for nodes smaller than node32, assuming a `byte`
 	// alphabet, that is, 256 symbols in the alphabet.
 }
 
@@ -83,6 +90,35 @@ func (n *node16) getChildren() []nodeRef {
 
 func (n *node16) getChildrenCapacity() int {
 	return node16Max
+}
+
+type refArray interface {
+	refArray4 | refArray16
+}
+
+type node[R slicerAll] struct {
+	refs R
+	nodeBase
+}
+
+func (n *node[R]) getChildren() []nodeRef {
+	return n.refs.sliceAll()[:n.childCount]
+}
+
+type SmallBuffer interface {
+	[16]byte | [32]byte | [64]byte
+}
+
+func ClearBuffer[T SmallBuffer](b T) {
+	// Logic for specific buffer sizes
+}
+
+type Float4 interface {
+	~[4]float64
+}
+
+func ProcessArray[T Float4](arr T) {
+	// Operations on a 4-element float array
 }
 
 func TestTypes(t *testing.T) {
