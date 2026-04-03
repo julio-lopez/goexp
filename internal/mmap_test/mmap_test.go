@@ -83,6 +83,12 @@ func createAutoDeleteTempFileFallback(t *testing.T, tempDir string) *os.File {
 	return f
 }
 
+func TestCreateAutoDeleteTempFile2(t *testing.T) {
+	f := createAutoDeleteTempFile2(t)
+
+	require.NoError(t, f.Close())
+}
+
 func createAutoDeleteTempFile2(t *testing.T) *os.File {
 	const permissions = 0o600
 
