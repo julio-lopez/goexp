@@ -29,7 +29,7 @@ func TestFileTypeAccessOnUnreadableDirectory(t *testing.T) {
 	err = os.Chmod(d1, 0o400)
 	require.NoError(t, err)
 
-	t.Cleanup(func() { os.Chmod(d1, 0o700) })
+	t.Cleanup(func() { os.Chmod(d1, 0o700) }) //nolint:errcheck
 
 	entries, err := os.ReadDir(d1)
 	require.NoError(t, err)
@@ -47,7 +47,7 @@ func TestFileTypeAccessOnUnreadableDirectory(t *testing.T) {
 
 	dh, err := os.Open(d1)
 	require.NoError(t, err)
-	t.Cleanup(func() { dh.Close() })
+	t.Cleanup(func() { dh.Close() }) //nolint:errcheck
 
 	names, err := dh.Readdirnames(0)
 	require.NoError(t, err)
