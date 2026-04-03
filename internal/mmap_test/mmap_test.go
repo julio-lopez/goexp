@@ -67,7 +67,7 @@ func TestAppendMmappedSlice(t *testing.T) {
 }
 
 func createAutoDeleteTempFile(t *testing.T) *os.File {
-	return createAutoDeleteTempFileFallback(t, "/mnt/t")
+	return createAutoDeleteTempFileFallback(t, "/tmp/")
 }
 
 func createAutoDeleteTempFileFallback(t *testing.T, tempDir string) *os.File {
@@ -92,8 +92,8 @@ func TestCreateAutoDeleteTempFile2(t *testing.T) {
 func createAutoDeleteTempFile2(t *testing.T) *os.File {
 	const permissions = 0o600
 
-	// tempDir := t.TempDir()
-	tempDir := "/mnt/t"
+	tempDir := t.TempDir()
+	// tempDir := "/mnt/t"
 
 	t.Log("tempdir:", tempDir)
 
