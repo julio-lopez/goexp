@@ -49,6 +49,7 @@ type (
 func (r refArray4) sliceAll() []nodeRef  { return r[:] }
 func (r refArray16) sliceAll() []nodeRef { return r[:] }
 
+//lint:ignore U1000
 //nolint:unused
 type slicerAll interface {
 	sliceAll() []nodeRef
@@ -93,17 +94,20 @@ func (n *node16) getChildrenCapacity() int {
 	return node16Max
 }
 
+//lint:ignore U1000
 //nolint:unused
 type refArray interface {
 	refArray4 | refArray16
 }
 
+//lint:ignore U1000
 //nolint:unused
 type node[R slicerAll] struct {
 	refs R
 	nodeBase
 }
 
+//lint:ignore U1000
 //nolint:unused
 func (n *node[R]) getChildren() []nodeRef {
 	return n.refs.sliceAll()[:n.childCount]
