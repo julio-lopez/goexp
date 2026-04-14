@@ -5,8 +5,8 @@ go 1.25.8
 require (
 	github.com/edsrzf/mmap-go v1.2.0
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/mod v0.34.0
-	golang.org/x/sys v0.42.0
+	golang.org/x/mod v0.35.0
+	golang.org/x/sys v0.43.0
 )
 
 require (
