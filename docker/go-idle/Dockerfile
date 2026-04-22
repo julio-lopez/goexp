@@ -29,26 +29,38 @@ RUN \
     tmux \
     tini \
     unzip \
+    util-linux-extra \
     wget \
   && \
-  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | \
-    tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
-  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
-    gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && \
-  apt-get update && \
-  apt-get install -y --no-install-recommends \
-    google-cloud-cli google-cloud-sdk-gke-gcloud-auth-plugin google-cloud-cli-gke-gcloud-auth-plugin && \
+  ln -s /usr/bin/batcat /usr/local/bin/bat && \
   apt-get autoclean && \
   apt-get clean && \
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/apt/* && \
-  rm -rf /etc/ssh/ssh_host_*_key* && \
+  rm -rf /etc/ssh/ssh_host_*_key*
+
+RUN \
+  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | \
+    tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+    gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+
+# RUN \
+#   apt-get update && \
+#   apt-get install -y --no-install-recommends \
+#     google-cloud-cli google-cloud-sdk-gke-gcloud-auth-plugin google-cloud-cli-gke-gcloud-auth-plugin && \
+#   apt-get autoclean && \
+#   apt-get clean && \
+#   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
+#   rm -rf /var/lib/apt/lists/* && \
+#   rm -rf /var/cache/apt/* && \
+#   rm -rf /etc/ssh/ssh_host_*_key*
+
+RUN \
   adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
-
-RUN ln -s /usr/bin/batcat /usr/local/bin/bat
 
 ENV PATH=/usr/local/go/bin:/user/go/bin:$PATH
 
