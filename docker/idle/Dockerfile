@@ -29,8 +29,10 @@ RUN \
     tmux \
     tini \
     unzip \
+    util-linux-extra \
     wget  \
     && \
+  ln -s /usr/bin/batcat /usr/local/bin/bat && \
   echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | \
     tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
@@ -45,9 +47,7 @@ RUN \
   mkdir -p /service/.s6-svscan /services && \
   chown -R user /service /services
 
-RUN ln -s /usr/bin/batcat /usr/local/bin/bat
-
-ENV PATH /usr/local/go/bin:/user/go/bin:$PATH
+ENV PATH=/usr/local/go/bin:/user/go/bin:$PATH
 
 USER user:users
 
