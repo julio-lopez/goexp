@@ -58,31 +58,31 @@ RUN \
 #   rm -rf /etc/ssh/ssh_host_*_key*
 
 RUN \
-  adduser --home /user --ingroup users --disabled-password --gecos "User" user && \
-  mkdir -p /service/.s6-svscan /services && \
-  chown -R user /service /services
+  adduser --home /home/user --ingroup users --disabled-password --gecos "User" user
 
-ENV PATH=/usr/local/go/bin:/user/go/bin:$PATH
+  # && \
+  # mkdir -p /service/.s6-svscan /services && \
+  # chown -R user /service /services
 
 USER user:users
 
-WORKDIR /user
+WORKDIR /home/user
+
+COPY --chown=user:users home/ /home/
 
 # Add s6 services directories and shutdown mechanisms
 RUN mkfifo stop && \
-  mkdir -p service/.s6-svscan services/ssh go/src go/bin && \
-  echo 's6-svscanctl -q /user/service' > shutdown-s6 && \
-  chmod 755 shutdown-s6 go
+mkdir -p /home/s6/active-svc/.s6-svscan /home/user/go/
 
-ENTRYPOINT ["/usr/bin/s6-svscan", "/user/service"]
+# COPY --chown=user:users ssh/ services/ssh/
+
+ENV PATH=/usr/local/go/bin:/user/go/bin:$PATH
+
+ENTRYPOINT ["/usr/bin/s6-svscan", "/home/s6/active-svc"]
 
 #ENTRYPOINT ["/usr/bin/tini", "--"]
 
 #ENTRYPOINT [ "tail", "/user/stop" ]
-
-COPY --chown=user:users ssh/ services/ssh/
-
-COPY --chown=user:users home/ ./
 
 ARG imageVersion="unknown"
 
