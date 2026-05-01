@@ -1,4 +1,4 @@
-FROM golang:1.25.9@sha256:091e6099f4a58e9393b8cc5615622a59c1cef64481b0ffcf349ec1574449059e
+FROM golang:1.26.2@sha256:b54cbf583d390341599d7bcbc062425c081105cc5ef6d170ced98ef9d047c716
 
 # Install required tools and signing keys for Google SDK
 RUN \
