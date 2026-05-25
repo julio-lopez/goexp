@@ -6,7 +6,7 @@ require (
 	github.com/edsrzf/mmap-go v1.2.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/mod v0.36.0
-	golang.org/x/sys v0.44.0
+	golang.org/x/sys v0.45.0
 )
 
 require (
