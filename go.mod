@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/edsrzf/mmap-go v1.2.0
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/mod v0.42.0
+	golang.org/x/mod v0.43.0
 	golang.org/x/sys v0.50.0
 )
 
